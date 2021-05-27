@@ -9,7 +9,6 @@ export class Audit {
 
   public time_created : string;
 
-
   public date_updated : string;
 
   public time_updated : string;

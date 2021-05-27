@@ -9,7 +9,7 @@ export class QuizUser {
     public surveyParticipated:boolean;
     public  max_attempt_left:number;
     public  max_attempt:number;
-    public quiz_category_id : number;
+    public quiz_topic_id : number;
     public score:number;
     public grade:string;
     public result:string;

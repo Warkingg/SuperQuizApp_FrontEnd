@@ -1,5 +1,4 @@
 import { QuizComponent } from './components/quiz/quiz.component';
-import { CategoryComponent } from './components/categories/categories..component';
 import { ActivityComponent } from './components/activity/activity.component';
 import { QuizRegisterComponent } from './components/register/register.component';
 /**
@@ -22,11 +21,10 @@ import { SessionTOComponent } from './components/session-timeout/session-timeout
 import { AnalyseResultComponent } from './components/analyse-result/analyse.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { QuizNotificationComponent } from './components/quiz-notification/quiznotification.component';
-import { SurveyComponent } from './components/survey/survey.component';
-import { SurveyPlayComponent } from './components/survey-play/survey-play.component';
 import { MessageComponent } from './components/message-center/message.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ActivityLogComponent } from './components/activityLog/activityLog.component';
+import {TopicsComponent} from "./components/topics/topics.component";
 
 
 const appRoutes: Routes = [
@@ -63,11 +61,12 @@ const appRoutes: Routes = [
 
   },
   {
-    path: 'categories',
+    path: 'topics',
 
-    component: CategoryComponent
+    component: TopicsComponent
 
   },
+
   {
     path: 'quizCarousel',
 
@@ -118,18 +117,7 @@ const appRoutes: Routes = [
   component: ProfileComponent
 
 },
-{
-  path: 'survey-play/:surveyIndex',
 
-  component: SurveyPlayComponent
-
-},
-{
-  path: 'survey-preview/:surveyIndex',
-
-  component: SurveyPlayComponent
-
-},
 {
   path: 'message-center',
 
@@ -161,12 +149,7 @@ const appRoutes: Routes = [
   component: ChartComponent
 
 },
-{
-  path: 'survey',
 
-  component: SurveyComponent
-
-},
 {
   path: 'quiz-notification/:flag',
 

@@ -10,10 +10,10 @@
     "time_schedule": null,
     "creator": 2,
     "time": 60,
-    "category": {
-        "category_id": 6,
-        "category_title": null,
-        "category_desc": null,
+    "topic": {
+        "topic_id": 6,
+        "topic_title": null,
+        "topic_desc": null,
         "audit": null
     },
     "show_answer": true,

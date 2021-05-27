@@ -1,6 +1,6 @@
 
 import { Question } from './Question';
-import { Category } from './Category';
+import { Topic } from './Topic';
 import { QuizSetting } from './QuizSetting';
 import { Grade } from './Grade';
 import { Audit } from './Audit';
@@ -22,31 +22,25 @@ export class Quiz {
   public show_answer : boolean =false;
   public show_score : boolean =false;
   answered:boolean =false;
-  public time : number;
-  public category : Category;
+  public time: number;
+  public topic: Topic;
  /**  public reviewer : User;
   public invigilator:User; **/
-  public reviewer: number;
-  public invigilator:number;
-  public assigneeUserIdList:string;
-  public assigneeCityList:string;
-  public assigneeStateList:string;
-  public assigneeRoleList:string;
-  public questionList : Question[];
+  public assigneeUserIdList: string;
+  public assigneeClassList: string;
+  public assigneeRoleList: string;
+  public questionList: Question[];
   public quizSetting: QuizSetting;
-  public blobQuestion : File;
-  public gradeList:Grade[];
-  public grade : Grade;
-  public status : string;
-  public creator : number;
-  public passMark : number;
-  public scheduleDateTime : string;
-  public date_schedule : string;
-  public time_schedule : string;
-  public comment : string;
-  public activity:Activity;
+  public blobQuestion: File;
+  public status: string;
+  public creator: number;
+  public passMark: number;
+  public scheduleDateTime: string;
+  public date_schedule: string;
+  public time_schedule: string;
+  public activity: Activity;
 
-  public audit : Audit;
+  public audit: Audit;
 
    
 }

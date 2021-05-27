@@ -8,7 +8,7 @@ import { ActivityLog } from 'src/app/models/ActivityLog';
 import { LoginService } from 'src/app/services/login.service';
 import { QuizService } from 'src/app/services/quiz.service';
 import { Quiz } from 'src/app/models/Quiz.js';
-import { Category } from 'src/app/models/Category';
+import { Topic} from 'src/app/models/Topic';
 import { Activity } from 'src/app/models/Activity';
 import { Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -38,8 +38,8 @@ userid:number;
 quizRvw : number;
   quizInvg : number;
   activityList :Activity[] =[];
-  categoryList : Category[] =[];
-  category: Category=new Category();
+  topicList : Topic[] =[];
+  topic: Topic= new Topic ();
   activity:Activity = new Activity();
   quizTitleList:any=[];
   user : User = new User();
@@ -53,7 +53,7 @@ quizRvw : number;
   notice = 'session expired';
   showNotice = false;
   public settings = {};
-  categorydata =[];
+  topicdata =[];
   rxjsTimer = timer(1000, 1000);
   public loadContent: boolean = false;
   dropdownList = [];
@@ -82,10 +82,10 @@ console.log(this.activityList.length);
       }
     );
 
-	this.quizService.getCategoryList().subscribe(
+	this.quizService.getTopicList().subscribe(
 		res => {
 		  console.log(res.json());
-		  this.categoryList=res.json();
+		  this.topicList=res.json();
 		
 		},
 		err => {
@@ -101,7 +101,7 @@ console.log(this.activityList.length);
  console.log(event.target.value);
    let dataPoints =[];
 
-   this.quizService.getQuizByCategory(event.target.value).subscribe(
+   this.quizService.getQuizByTopic(event.target.value).subscribe(
 	res => {
 		this.quizTitleList = res.json();
 	},
@@ -111,7 +111,7 @@ console.log(this.activityList.length);
   );
 
   
- this.quizService.getResultByCategory(event.target.value).subscribe(
+ this.quizService.getResultByTopic(event.target.value).subscribe(
 	res => {
 	  console.log(res.json());
 	  this.dataPoint1.y=res.json()['passCount'];
@@ -123,7 +123,7 @@ console.log(this.activityList.length);
 	  this.dataPoints = dataPoints;
 	  this.renderPie(this.dataPoints,event.target.value);
 			this.renderBar(this.dataPoints,event.target.value);
-			this.statewiseByCategory(event.target.value);
+			this.statewiseByTopic(event.target.value);
 	},
 	err => {
 	  console.log(err);
@@ -149,7 +149,7 @@ console.log( dataPoints);
 		  this.dataPoints = dataPoints;
 		  this.renderPie(this.dataPoints,event.target.value);
 				this.renderBar(this.dataPoints,event.target.value);
-				this.statewiseByCategory(event.target.value);
+				this.statewiseByTopic(event.target.value);
 		},
 		err => {
 		  console.log(err);
@@ -243,12 +243,12 @@ console.log( dataPoints);
 
   }
 
-  statewiseByCategory(categoryId){
+  statewiseByTopic(topicId){
 
 
 	let dataFailList =[];	let dataPassList =[];
 	    
-	  this.quizService.getStatewiseResultByCategory(categoryId).subscribe(
+	  this.quizService.getStatewiseResultByTopic(topicId).subscribe(
 		 res => {
 		   console.log(res.json());
 		   res.json().forEach(element=>{
@@ -268,7 +268,7 @@ console.log( dataPoints);
 
 		   });
 
-				 this.renderMultiBar( dataPassList,dataFailList,categoryId);
+				 this.renderMultiBar( dataPassList,dataFailList,topicId);
 		 },
 		 err => {
 		   console.log(err);
@@ -344,22 +344,22 @@ console.log( dataPoints);
 
   populateCategories(){
 
-	let categoryList =[];
-	let categorydata :any =[];
-    this.quizService.getCategoryList().subscribe(
+	let topicList =[];
+	let topicdata :any =[];
+    this.quizService.getTopicList().subscribe(
 		res => {
 		  console.log(res.json());
-		  categoryList=res.json();
-		  categoryList = categoryList.filter(function( element ) {
+		  topicList=res.json();
+		  topicList = topicList.filter(function( element ) {
 			return element !== undefined;
 		  });
-		  console.log(categoryList);
-		  for(let i=0;i<=categoryList.length;i++){
-		  console.log(categoryList[i])
+		  console.log(topicList);
+		  for(let i=0;i<=topicList.length;i++){
+		  console.log(topicList[i])
 			let object = new Object();
-			object["item_id"]=categoryList[i]!=undefined?categoryList[i].category_title:'NA';
-			object["item_text"]=categoryList[i]!=undefined?categoryList[i].category_title:'NA';
-			categorydata.push(object);
+			object["item_id"]= topicList[i]!=undefined?topicList[i].category_title:'NA';
+			object["item_text"]= topicList[i]!=undefined?topicList[i].category_title:'NA';
+			topicdata.push(object);
 			
 	  
 			
@@ -370,8 +370,8 @@ console.log( dataPoints);
 		}
 	  );
 
-   this.categorydata=categorydata;
-   console.log( this.categorydata);
+   this.topicdata=topicdata;
+   console.log( this.topicdata);
 
   }
 
@@ -384,7 +384,7 @@ console.log( dataPoints);
   }
   public setForm() {
     this.form = new FormGroup({
-      name: new FormControl(this.categorydata, Validators.required)
+      name: new FormControl(this.topicdata, Validators.required)
     });
     this.loadContent = true;
   }
@@ -475,9 +475,9 @@ console.log( dataPoints);
 renderPie(data,title){
 
 	let chartTitle =(title==='All'?title:null);
-	this.categoryList.forEach(category=>{
-		if(category.category_id == title){
-			chartTitle = category.category_title;
+	this.topicList.forEach(topic=>{
+		if(topic.topic_id == title){
+			chartTitle = topic.topic_title;
 		}
 	})
 
@@ -501,12 +501,12 @@ renderPie(data,title){
 
 }
 
-renderBar(data,title){
+	renderBar(data,title){
 
 	let chartTitle =(title==='All'?title:null);
-	this.categoryList.forEach(category=>{
-		if(category.category_id == title){
-			chartTitle = category.category_title;
+	this.topicList.forEach(topic=>{
+		if(topic.topic_id == title){
+			chartTitle = topic.topic_title;
 		}
 	})
 	let chart1 = new CanvasJS.Chart("chartContainer1", {
@@ -539,9 +539,9 @@ renderBar(data,title){
 renderMultiBar(dataPass,dataFail ,title){
 
 	let chartTitle =(title==='All'?title:null);
-	this.categoryList.forEach(category=>{
-		if(category.category_id == title){
-			chartTitle = category.category_title;
+	this.topicList.forEach(topic=>{
+		if(topic.topic_id == title){
+			chartTitle = topic.topic_title;
 		}
 	})
 

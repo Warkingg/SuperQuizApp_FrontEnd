@@ -12,6 +12,7 @@ import { UserQuestionMap } from 'src/app/models/UserQuestionMap';
 declare let $: any;
 
 @Component({
+
     selector: 'quiz-play',
     templateUrl: './quiz-play.component.html',
     styleUrls: ['./quiz-play.component.css']
@@ -90,9 +91,9 @@ export class QuizPlayComponent implements OnInit {
      myProperty = true;
      
   
-    constructor(private _Activatedroute:ActivatedRoute,private quizService: QuizService,private router : Router) {
+    constructor(private activatedRoute:ActivatedRoute,private quizService: QuizService,private router : Router) {
 
-      this._Activatedroute.paramMap.subscribe(params => { 
+      this.activatedRoute.paramMap.subscribe(params => {
         this.quizIndex = Number(params.get('quizIndex')); 
 
       });
@@ -309,14 +310,13 @@ do {
     // this.percentage = (this.totCorrect * 100 / this.quiz.questionList.length).toFixed();
      this.percentage = (this.totCorrect * 100 / this.randomQuestions.length).toFixed();
      console.log( this.percentage);
-    this.grade = this.calculateGrade(this.percentage);
     this.quizUser.grade= this.grade;
     this.quizUser.max_attempt_left = this.maxAttemptLeft===0 ? this.quiz.max_attempt-1:this.maxAttemptLeft-1;
     this.quizUser.percentage =  this.percentage ;
     this.quizUser.quiz_id = this.quiz.quizIndex;
     this.quizUser.result = this.result;
     this.quizUser.score = this.score;
-    this.quizUser.quiz_category_id = this.quiz.category.category_id;
+    this.quizUser.quiz_topic_id = this.quiz.topic.topic_id;
     this.quizUser.userId = this.userId;
     this.quizUser.completion_time = (this.time / 1000).toString() ;//this.duration;
     this.quizUser.completion_date = new Date().toString();
@@ -353,20 +353,19 @@ do {
      }
      this.percentage = (this.totCorrect * 100 / this.randomQuestions.length).toFixed();
      console.log( this.percentage);
-    this.grade = this.calculateGrade(this.percentage);
     this.quizUser.grade= this.grade;
-    this.quizUser.max_attempt_left = this.maxAttemptLeft===0 ? this.quiz.max_attempt-1:this.maxAttemptLeft-1;
+    this.quizUser.max_attempt_left = this.maxAttemptLeft === 0 ? this.quiz.max_attempt - 1 : this.maxAttemptLeft-1;
     this.quizUser.percentage =  this.percentage ;
     this.quizUser.quiz_id = this.quiz.quizIndex;
     this.quizUser.result = this.result;
     this.quizUser.score = this.score;
-    this.quizUser.quiz_category_id = this.quiz.category.category_id;
+    this.quizUser.quiz_topic_id = this.quiz.topic.topic_id;
     this.quizUser.userId = this.userId
     this.quizUser.completion_time = this.duration;
     this.quizUser.completion_date = new Date().toString();
     this.quizUser.max_attempt = this.quiz.max_attempt;
     this.quizUser.questionList =  this.randomQuestions;
-   
+
    // console.log('Execution time: ' + this.time / 1000 +" Score :"+this.score);
   this.mode = 'result';
       } else {
@@ -399,41 +398,7 @@ do {
     }
 
 
-    calculateGrade(percentage){
-        let grade=null;
-        if(Number(percentage) >= this.quiz.grade.gradeAPlus){
-         
-          grade = "A+";
-        }
-        else if(Number(percentage) >= this.quiz.grade.gradeA && Number(percentage) < this.quiz.grade.gradeAPlus){
-          grade = "A";
-        }
-        else if(Number(percentage) >= this.quiz.grade.gradeAMinus && Number(percentage) < this.quiz.grade.gradeA){
-          grade = "A-";
-        }
-        else if(Number(percentage) >= this.quiz.grade.gradeBPlus && Number(percentage) < this.quiz.grade.gradeAMinus ){
-          grade = "B+";
-        }
-        else if(Number(percentage) >= this.quiz.grade.gradeB &&  Number(percentage) < this.quiz.grade.gradeBPlus){
-          grade = "B";
-        }
-        else if(Number(percentage) >= this.quiz.grade.gradeBMinus &&  Number(percentage) < this.quiz.grade.gradeB){
-          grade = "B-";
-        } else if(Number(percentage) >= this.quiz.grade.gradeCPlus && Number(percentage) < this.quiz.grade.gradeBMinus ){
-          grade = "C+";
-        }
-        else if(Number(percentage) >= this.quiz.grade.gradeC &&  Number(percentage) < this.quiz.grade.gradeCPlus){
-          grade = "C";
-        }
-        else if(Number(percentage) >= this.quiz.grade.gradeCMinus &&  Number(percentage) < this.quiz.grade.gradeC){
-          grade = "C-";
-        }else{
-          grade ="D";
-        }
 
-       return grade;
-
-    }
 
   
     tick() {
@@ -723,4 +688,3 @@ do {
     }
    
   }
-  

@@ -21,7 +21,6 @@ import { ChartComponent } from './components/chart/chart.component';
 import { ActivityComponent } from './components/activity/activity.component';
 import { QuizService } from './services/quiz.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
-import { CategoryComponent } from './components/categories/categories..component';
 import { QuizCarouselComponent } from './components/quiz-carousel/quiz-carousel.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { NavBarComponentQuizFront } from './components/nav-bar-quiz-front/nav-bar-sf.component';
@@ -36,15 +35,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { RoleComponent } from './components/role-manaement/role-assignment';
 import { QuizBank } from './components/questionBank/qBank.component';
 import { QuizPlayComponent } from './components/quiz-play/quiz-play.component';
-import { ReviewComponent } from './components/review/review.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { SessionTOComponent } from './components/session-timeout/session-timeout.component';
 import { AnalyseResultComponent } from './components/analyse-result/analyse.component';
 import { QuizNotificationComponent } from './components/quiz-notification/quiznotification.component';
-import { SurveyComponent } from './components/survey/survey.component';
-import { SurveyPlayComponent } from './components/survey-play/survey-play.component';
 import { MessageComponent } from './components/message-center/message.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { TopicsComponent } from './components/topics/topics.component';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +55,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     SideBarComponent,
     ActivityComponent,
     PaginationComponent,
-    CategoryComponent,
+    TopicsComponent,
     QuizCarouselComponent,
     QuizComponent,
     ActivityLogComponent,
@@ -66,14 +64,12 @@ import { ProfileComponent } from './components/profile/profile.component';
     RoleComponent,
     QuizBank,
     QuizPlayComponent,
-    ReviewComponent,
     AnalyseResultComponent,
     ActivityLogComponent,
     QuizNotificationComponent,
-    SurveyComponent,
-    SurveyPlayComponent,
     MessageComponent,
-    ProfileComponent
+    ProfileComponent,
+    TopicsComponent,
 
   ],
   imports: [

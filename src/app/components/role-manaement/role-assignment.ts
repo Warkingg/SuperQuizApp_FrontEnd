@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
-import { Category } from 'src/app/models/Category';
+import { Topic } from 'src/app/models/Topic';
 import { Quiz } from 'src/app/models/Quiz';
 import { ActivityLog } from 'src/app/models/ActivityLog';
 import { QuizService } from 'src/app/services/quiz.service';
@@ -37,7 +37,7 @@ export class RoleComponent implements OnInit {
     loggedIn:boolean;
     username : string;
     activityList :Activity[] =[];
-    categoryList : Category[] =[];
+    TopicList : Topic[] =[];
     quizList:Quiz[]=[];
     activityLog : ActivityLog = new ActivityLog();
     quizRvw : number;
@@ -253,4 +253,3 @@ console.log(this.username);
       }
     
     }
-    

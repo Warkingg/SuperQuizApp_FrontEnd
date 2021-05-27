@@ -1,5 +1,5 @@
 
-import { Category } from '../../models/Category';
+import { Topic } from '../../models/Topic';
 import { Component, OnInit } from '@angular/core';
 import { Activity } from 'src/app/models/Activity';
 import { Quiz } from 'src/app/models/Quiz';
@@ -8,7 +8,7 @@ import { QuizService } from 'src/app/services/quiz.service';
 import { Router } from '@angular/router';
 import { ActivityLogService } from 'src/app/services/activity-log.service';
 import { ActivityLog } from 'src/app/models/ActivityLog';
-import { QBankCategoryMap } from 'src/app/models/QBankCatMap';
+import { QuestionBankTopicMap } from 'src/app/models/QuestionBankTopicMap';
 import { Observable, Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AppConst } from 'src/app/constants/app-const';
@@ -35,15 +35,15 @@ export class IndexQuizFront implements OnInit {
   quizCreator : number;
   quizCount : number=0;
   activityList :Activity[] =[];
-  categoryList : Category[] =[];
+  topicList : Topic[] =[];
   quizList:Quiz[]=[];
   surveyList:Quiz[]=[];
   activityLog : ActivityLog = new ActivityLog();
   quizRvw : number;
   quizInvg : number;
   qBankCountTotal : number =0;
-  qBankCategoryMap : QBankCategoryMap = new QBankCategoryMap();
-  qBankCategoryMapList : QBankCategoryMap[] =[];
+  qBankTopicMap : QuestionBankTopicMap = new QuestionBankTopicMap();
+  qBankTopicMapList : QuestionBankTopicMap[] =[];
   quizUserList:QuizUser[]=[];
   quizUser:QuizUser = new QuizUser();
   destroy = new Subject();
@@ -74,10 +74,10 @@ export class IndexQuizFront implements OnInit {
 console.log(this.activityList.length);
     });
 
-    this.quizService.getCategoryList().subscribe(
+    this.quizService.getTopicList().subscribe(
       res => {
         console.log(res.json());
-        this.categoryList=res.json();
+        this.topicList=res.json();
       },
       err => {
         console.log(err);
@@ -124,15 +124,6 @@ console.log(this.activityList.length);
      
     );
 
-    this.quizService.getSurveyList().subscribe(
-      res => {
-        console.log(res.json());
-        this.surveyList=res.json();
-      },
-      err => {
-        console.log(err);
-      }
-    );
     this.user.username = this.getWithExpiry("username");
     console.log(this.user.username);
     if(this.user.username == null){
@@ -202,7 +193,7 @@ do {
     console.log(this.username);
     this.getNotification();
     this.getQuestionBankCount();
-    console.log(this.qBankCategoryMapList);
+    console.log(this.qBankTopicMapList);
     let logFlag= false;
     this.loginService.checkSession().subscribe(
       res => {
@@ -317,8 +308,8 @@ this.checkSession();
     this.quizService.getQuestionBankCount().subscribe(
       res => {
           console.log(res.json());
-          this.qBankCategoryMapList = res.json();
-          this.qBankCategoryMapList.forEach(element => {
+          this.qBankTopicMapList = res.json();
+          this.qBankTopicMapList.forEach(element => {
             this.qBankCountTotal+=element['questionBankcount'];
             console.log(element['questionBankcount'])
           });

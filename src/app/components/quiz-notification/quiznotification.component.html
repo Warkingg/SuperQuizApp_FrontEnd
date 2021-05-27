@@ -294,7 +294,7 @@ $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
                       <tr>
                         <th>Quiz Title</th>
                         <th>Quiz Index</th>
-                        <th>Category</th>
+                        <th>Topic</th>
                         <th>Status</th>
                         <th>Level</th>
                         <th>Date</th>
@@ -306,7 +306,7 @@ $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
                       <tr  *ngFor="let quizDetails of eligibility.activeQuizDetailsList">
                         <td>{{quizDetails.quizTitle}}</td>
                         <td>{{quizDetails.quizIndex}}</td>
-                        <td>{{quizDetails.quizCategory}}</td>
+                        <td>{{quizDetails.quizTopic}}</td>
                         <td>{{quizDetails.status}}</td>
                         <td>{{quizDetails.level}}</td>
                         <td>{{quizDetails.date}}</td>
@@ -383,7 +383,7 @@ $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
                       <tr>
                         <th>Quiz Title</th>
                         <th>Quiz Index</th>
-                        <th>Quiz Category</th>
+                        <th>Quiz Topic</th>
                         <th>Status</th>
                         <th>Level</th>
                         <th>Date</th>
@@ -394,7 +394,7 @@ $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
                       <tr  *ngFor="let quizDetails of eligibility.expiredQuizDetailsList">
                         <td>{{quizDetails.quizTitle}}</td>
                         <td>{{quizDetails.quizIndex}}</td>
-                        <td>{{quizDetails.quizCategory}}</td>
+                        <td>{{quizDetails.quizTopic}}</td>
                         <td>{{quizDetails.status}}</td>
                         <td>{{quizDetails.level}}</td>
                         <td>{{quizDetails.date}}</td>
@@ -411,7 +411,7 @@ $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
                       <tr>
                         <th>Quiz Title</th>
                         <th>Quiz Index</th>
-                        <th>Quiz Category</th>
+                        <th>Quiz Topic</th>
                         <th>Status</th>
                         <th>Level</th>
                         <th>Date</th>
@@ -422,7 +422,7 @@ $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
                       <tr  *ngFor="let quizDetails of eligibility.upcomingQuizDetailsList">
                         <td>{{quizDetails.quizTitle}}</td>
                         <td>{{quizDetails.quizIndex}}</td>
-                        <td>{{quizDetails.quizCategory}}</td>
+                        <td>{{quizDetails.quizTopic}}</td>
                         <td>{{quizDetails.status}}</td>
                         <td>{{quizDetails.level}}</td>
                         <td>{{quizDetails.date}}</td>

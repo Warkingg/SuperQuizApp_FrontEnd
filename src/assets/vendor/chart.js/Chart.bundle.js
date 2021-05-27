@@ -3849,8 +3849,8 @@ core_defaults._set('bar', {
 
 	scales: {
 		xAxes: [{
-			type: 'category',
-			categoryPercentage: 0.8,
+			type: 'topic',
+			topicPercentage: 0.8,
 			barPercentage: 0.9,
 			offset: true,
 			gridLines: {
@@ -3887,22 +3887,22 @@ function computeMinSampleSize(scale, pixels) {
 }
 
 /**
- * Computes an "ideal" category based on the absolute bar thickness or, if undefined or null,
+ * Computes an "ideal" topic based on the absolute bar thickness or, if undefined or null,
  * uses the smallest interval (see computeMinSampleSize) that prevents bar overlapping. This
  * mode currently always generates bars equally sized (until we introduce scriptable options?).
  * @private
  */
-function computeFitCategoryTraits(index, ruler, options) {
+function computeFitTopicTraits(index, ruler, options) {
 	var thickness = options.barThickness;
 	var count = ruler.stackCount;
 	var curr = ruler.pixels[index];
 	var size, ratio;
 
 	if (helpers$1.isNullOrUndef(thickness)) {
-		size = ruler.min * options.categoryPercentage;
+		size = ruler.min * options.topicPercentage;
 		ratio = options.barPercentage;
 	} else {
-		// When bar thickness is enforced, category and bar percentages are ignored.
+		// When bar thickness is enforced, topic and bar percentages are ignored.
 		// Note(SB): we could add support for relative bar thickness (e.g. barThickness: '50%')
 		// and deprecate barPercentage since this value is ignored when thickness is absolute.
 		size = thickness * count;
@@ -3917,17 +3917,17 @@ function computeFitCategoryTraits(index, ruler, options) {
 }
 
 /**
- * Computes an "optimal" category that globally arranges bars side by side (no gap when
- * percentage options are 1), based on the previous and following categories. This mode
+ * Computes an "optimal" topic that globally arranges bars side by side (no gap when
+ * percentage options are 1), based on the previous and following topics. This mode
  * generates bars with different widths when data are not evenly spaced.
  * @private
  */
-function computeFlexCategoryTraits(index, ruler, options) {
+function computeFlexTopicTraits(index, ruler, options) {
 	var pixels = ruler.pixels;
 	var curr = pixels[index];
 	var prev = index > 0 ? pixels[index - 1] : null;
 	var next = index < pixels.length - 1 ? pixels[index + 1] : null;
-	var percent = options.categoryPercentage;
+	var percent = options.topicPercentage;
 	var start, size;
 
 	if (prev === null) {
@@ -4172,8 +4172,8 @@ var controller_bar = core_datasetController.extend({
 		var me = this;
 		var options = ruler.scale.options;
 		var range = options.barThickness === 'flex'
-			? computeFlexCategoryTraits(index, ruler, options)
-			: computeFitCategoryTraits(index, ruler, options);
+			? computeFlexTopicTraits(index, ruler, options)
+			: computeFitTopicTraits(index, ruler, options);
 
 		var stackIndex = me.getStackIndex(datasetIndex, me.getMeta().stack);
 		var center = range.start + (range.chunk * stackIndex) + (range.chunk / 2);
@@ -4838,9 +4838,9 @@ core_defaults._set('horizontalBar', {
 		}],
 
 		yAxes: [{
-			type: 'category',
+			type: 'topic',
 			position: 'left',
-			categoryPercentage: 0.8,
+			topicPercentage: 0.8,
 			barPercentage: 0.9,
 			offset: true,
 			gridLines: {
@@ -4891,7 +4891,7 @@ core_defaults._set('line', {
 
 	scales: {
 		xAxes: [{
-			type: 'category',
+			type: 'topic',
 			id: 'x-axis-0'
 		}],
 		yAxes: [{
@@ -5781,7 +5781,7 @@ core_defaults._set('scatter', {
 	scales: {
 		xAxes: [{
 			id: 'x-axis-1',    // need an ID so datasets can reference the scale
-			type: 'linear',    // scatter should not use a category axis
+			type: 'linear',    // scatter should not use a topic axis
 			position: 'bottom'
 		}],
 		yAxes: [{
@@ -8318,7 +8318,7 @@ function mergeScaleConfig(/* config objects ... */) {
 
 				for (i = 0; i < slen; ++i) {
 					scale = source[key][i];
-					type = valueOrDefault$8(scale.type, key === 'xAxes' ? 'category' : 'linear');
+					type = valueOrDefault$8(scale.type, key === 'xAxes' ? 'topic' : 'linear');
 
 					if (i >= target[key].length) {
 						target[key].push({});
@@ -8587,7 +8587,7 @@ helpers$1.extend(Chart.prototype, /** @lends Chart */ {
 		if (options.scales) {
 			items = items.concat(
 				(options.scales.xAxes || []).map(function(xAxisOptions) {
-					return {options: xAxisOptions, dtype: 'category', dposition: 'bottom'};
+					return {options: xAxisOptions, dtype: 'topic', dposition: 'bottom'};
 				}),
 				(options.scales.yAxes || []).map(function(yAxisOptions) {
 					return {options: yAxisOptions, dtype: 'linear', dposition: 'left'};
@@ -11136,7 +11136,7 @@ var defaultConfig = {
 	position: 'bottom'
 };
 
-var scale_category = core_scale.extend({
+var scale_topic = core_scale.extend({
 	/**
 	* Internal function to get the correct labels. If data.xLabels or data.yLabels are defined, use those
 	* else fall back to data.labels
@@ -11197,13 +11197,13 @@ var scale_category = core_scale.extend({
 
 		// If value is a data object, then index is the index in the data array,
 		// not the index of the scale. We need to change that.
-		var valueCategory;
+		var valueTopic;
 		if (value !== undefined && value !== null) {
-			valueCategory = me.isHorizontal() ? value.x : value.y;
-		}
-		if (valueCategory !== undefined || (value !== undefined && isNaN(index))) {
+			valueTopic = me.isHorizontal() ? value.x : value.y;
+		}Topic
+		if (valueTopic !== undefined || (value !== undefined && isNaN(index))) {
 			var labels = me.getLabels();
-			value = valueCategory || value;
+			value = valueTopic || value;
 			var idx = labels.indexOf(value);
 			index = idx !== -1 ? idx : index;
 		}
@@ -11262,7 +11262,7 @@ var scale_category = core_scale.extend({
 
 // INTERNAL: static default options, registered in src/index.js
 var _defaults = defaultConfig;
-scale_category._defaults = _defaults;
+scale_topic._defaults = _defaults;
 
 var noop = helpers$1.noop;
 var isNullOrUndef = helpers$1.isNullOrUndef;
@@ -13318,7 +13318,7 @@ var _defaults$4 = defaultConfig$4;
 scale_time._defaults = _defaults$4;
 
 var scales = {
-	category: scale_category,
+	topic: scale_topic,
 	linear: scale_linear,
 	logarithmic: scale_logarithmic,
 	radialLinear: scale_radialLinear,

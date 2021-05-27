@@ -3851,8 +3851,8 @@ core_defaults._set('bar', {
 
 	scales: {
 		xAxes: [{
-			type: 'category',
-			categoryPercentage: 0.8,
+			type: 'topic',
+			topicPercentage: 0.8,
 			barPercentage: 0.9,
 			offset: true,
 			gridLines: {
@@ -3920,11 +3920,11 @@ function computeFitCategoryTraits(index, ruler, options) {
 
 /**
  * Computes an "optimal" category that globally arranges bars side by side (no gap when
- * percentage options are 1), based on the previous and following categories. This mode
+ * percentage options are 1), based on the previous and following topics. This mode
  * generates bars with different widths when data are not evenly spaced.
  * @private
  */
-function computeFlexCategoryTraits(index, ruler, options) {
+function computeFlexTopicTraits(index, ruler, options) {
 	var pixels = ruler.pixels;
 	var curr = pixels[index];
 	var prev = index > 0 ? pixels[index - 1] : null;
